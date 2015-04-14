@@ -11,9 +11,9 @@
     <div class="list-group-item" ng-repeat="product in store.products">
       <h3>{{product.name}} <em class="pull-right">{{product.price | currency}}</em></h3>
       <!-- Image Gallery -->
-      <div class="gallery" ng-show="{{product.images.length}}">
+      <div class="gallery" ng-controller="GalleryController as gallery" ng-show="{{product.images.length}}">
         <div class="img-wrap">
-          <img ng-src="{{product.images[0]}}" />
+          <img ng-src="{{product.images[gallery.current]}}" />
         </div>
         <ul class="img-thumbnails clearfix">
           <li class="small-image pull-left thumbnail" ng-repeat="image in product.images">
@@ -42,7 +42,13 @@
         </div>
         <div class="panel" ng-show="panel.isSelected(3)">
           <h4>Reviews</h4>
-          <blockquote>None yet</blockquote>
+          <blockquote ng-repeat ="review in product.reviews">
+            <p>Author: {{review.author}} </p>
+            <p>Stars: {{review.stars}} </p>
+            <p>Body: {{review.body}}</p>
+            <small>{{review.createdOn | date:'M/d/yy @h:mm'}}</small>
+            <br><br>
+          </blockquote>
         </div>
         </section>
       </div>
